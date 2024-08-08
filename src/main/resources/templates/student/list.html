@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List of Students</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/api/v1/students/home}">Home</a></li>
+            <li><a th:href="@{/api/v1/students/list}">List Students</a></li>
+            <li><a th:href="@{/api/v1/students/register}">Register Student</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>List of Students</h1>
+    <div class="student-list">
+        <table>
+            <thead>
+            <tr>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.studentNumber}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td>
+                    <a th:href="@{/api/v1/students/edit/{id}(id=${student.studentId})}">Edit</a>
+                    <form th:action="@{/api/v1/students/delete/{id}(id=${student.studentId})}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete"/> <!-- This is optional if using POST for deletion -->
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <p>© 2024 eRegistrar System</p>
+</footer>
+</body>
+</html>

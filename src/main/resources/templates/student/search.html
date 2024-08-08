@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Students</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/api/v1/students/home}">Home</a></li>
+            <li><a th:href="@{/api/v1/students/list}">List Students</a></li>
+            <li><a th:href="@{/api/v1/students/register}">Register Student</a></li>
+            <li><a th:href="@{/api/v1/students/search}">Search Students</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h1>Search Students</h1>
+    <form th:action="@{/api/v1/students/search}" method="post">
+        <input type="text" name="query" placeholder="Search by name or ID" required/>
+        <button type="submit">Search</button>
+    </form>
+    <div class="student-list" th:if="${students != null}">
+        <table>
+            <thead>
+            <tr>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.studentNumber}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <p>©️ 2024 eRegistrar System</p>
+</footer>
+</body>
+</html>
